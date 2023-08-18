@@ -69,15 +69,15 @@
 					<image>
 						<name>golden-image</name>
 					</image>
-				</configuration> -->
-				<executions>
+				</configuration> 
+ 				<executions>
 					<execution>
-<!-- 						<phase>install</phase> -->
+						<phase>install</phase> 
 						<goals>
 							<goal>build-image</goal>
 						</goals>
 					</execution>
-				</executions>
+				</executions> -->
 			</plugin>
 		</plugins>
 	</build>
