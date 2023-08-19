@@ -60,12 +60,12 @@
 	</dependencies>
 
 	<build>
-	<finalName>goldenassessment-image</finalName>
+<!-- 	<finalName>goldenassessment-image</finalName> -->
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-<!-- 				<configuration>
+ 				<configuration>
 					<image>
 						<name>golden-image</name>
 					</image>
@@ -77,7 +77,7 @@
 							<goal>build-image</goal>
 						</goals>
 					</execution>
-				</executions> -->
+				</executions> 
 			</plugin>
 		</plugins>
 	</build>
