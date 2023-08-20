@@ -60,7 +60,7 @@
 	</dependencies>
 
 	<build>
-<!-- 	<finalName>goldenassessment-image</finalName> -->
+	<finalName>golden-image</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
