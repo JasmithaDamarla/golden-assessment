@@ -1,0 +1,44 @@
+pipeline{
+    agent any
+    tools {
+        maven 'Apache-maven-3.9.4'
+    }
+    stages {
+        stage("staging"){
+            steps {
+                echo "started"
+            }
+        }
+        stage("git connect"){
+            steps{
+                git branch: 'assessment', url: 'https://github.com/JasmithaDamarla/golden-assessment.git'
+            }
+        }
+        stage("maven clean & install"){
+            steps {
+                bat 'cd GoldenAssessment && mvn clean && mvn install'
+            }
+        }
+
+        stage('jacoco-code-coverage'){
+            steps{
+                jacoco()
+            }
+        }
+        stage("SonarQube analysis") {
+            steps {
+                bat "cd GoldenAssessment && mvn sonar:sonar -Dsonar.projectKey=golden-assessment -Dsonar.projectName='golden-assessment' -Dsonar.host.url=http://localhost:9000 -Dsonar.token=sqp_6e2a8b840a4f4586f09aa601ee43c07a9f51b7d8"
+
+            }
+        }
+        stage('Push image to Hub'){
+            steps{
+                withCredentials([string(credentialsId: 'DOCKER_PASSWORD', variable: 'password')]) {
+                    bat "docker login -u jasmithadamarla -p ${password}"
+                    bat "docker push golden-image"
+                }
+
+            }
+        }
+    }
+}

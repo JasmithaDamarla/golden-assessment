@@ -29,9 +29,9 @@ public class Associates {
 	private String gender;
 	private String college;
 	private String status;
-//	@ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.DETACH})//(targetEntity = Batches.class)
-//	@JoinColumn(name = "batchFK")
-	@ManyToOne
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "batch_id", referencedColumnName = "id")
 	private Batches batches;	
 	
 }

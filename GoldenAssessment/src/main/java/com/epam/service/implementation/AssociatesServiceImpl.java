@@ -3,6 +3,9 @@ package com.epam.service.implementation;
 import java.util.List;
 import java.util.Optional;
 
+import com.epam.dto.BatchesDTO;
+import com.epam.entity.Batches;
+import com.epam.repository.BatchesRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,10 +25,18 @@ public class AssociatesServiceImpl implements AssociatesService {
 	@Autowired
 	private AssociatesRepository associatesRepository;
 	@Autowired
+	private BatchesRepository batchesRepository;
+	@Autowired
 	private ModelMapper modelMapper;
 
 	@Override
 	public AssociatesDTO addAssociate(AssociatesDTO newAssociatesDTO) throws AssociatesException {
+
+		Batches batches = Optional.ofNullable(batchesRepository.findByNameAndPractice(newAssociatesDTO.getBatches().getName(), newAssociatesDTO.getBatches().getPractice())).orElseGet(()->
+		batchesRepository.save(modelMapper.map(newAssociatesDTO.getBatches(), Batches.class)));
+		log.info("batches obtained {}",batches);
+//		newAssociatesDTO.setBatches(modelMapper.map(batches, BatchesDTO.class));
+		log.info("batches set done");
 		Associates newAssociate = Optional
 				.ofNullable(associatesRepository.save(modelMapper.map(newAssociatesDTO, Associates.class)))
 				.orElseThrow(() -> new AssociatesException("failed to add an associate"));
